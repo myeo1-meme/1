@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>서고 SAEKM — 링크 보관함</title>
+<title>서고 SEOGO — 링크 보관함</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
@@ -19,13 +19,12 @@
 @font-face { font-family: 'Paperozi'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
 
 :root{
-  --surface:#ffffff; --surface2:#fbfdff;
+  --bg:#f4f7fd; --surface:#ffffff; --surface2:#fbfdff;
   --ink:#152441; --mut:#5a6b86; --dim:#93a2ba;
   /* 테마 변수 — JS에서 덮어씀 */
-  --bg:#f4f7fd;
   --blue:#2f6bed; --blue-deep:#1e56d6; --blue-light:#4d82ff;
-  --blue-soft:#e8f0ff; --blue-glow:47,107,237;
-  --coral:#ff7a5c; --danger:#e5484d;
+  --blue-soft:#e8f0ff; --blue-glow:47,107,237; --blue-bg:#f4f7fd;
+  --cyan:#12a5c9; --coral:#ff7a5c; --danger:#e5484d;
   --sh-sm:0 1px 2px rgba(23,43,99,.06), 0 4px 12px -4px rgba(23,43,99,.10);
   --sh-md:0 2px 6px rgba(23,43,99,.06), 0 14px 30px -12px rgba(23,43,99,.18);
   --sh-lg:0 4px 10px rgba(23,43,99,.07), 0 28px 56px -18px rgba(23,43,99,.25);
@@ -36,11 +35,12 @@
   color-scheme:light;
 }
 *{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none !important}
 html{scroll-behavior:smooth}
-body{font-family:var(--body); background:var(--bg); color:var(--ink); min-height:100vh; overflow-x:hidden; line-height:1.55; transition:background-color .4s ease}
+body{font-family:var(--body); background:var(--blue-bg); color:var(--ink); min-height:100vh; overflow-x:hidden; line-height:1.55; transition:background .4s ease}
 
 /* 글로우 블롭 */
-.glow{position:fixed; border-radius:50%; filter:blur(90px); z-index:-1; pointer-events:none; transition:background .5s ease}
+.glow{position:fixed; border-radius:50%; filter:blur(90px); z-index:-1; pointer-events:none}
 .glow-a{width:560px;height:560px; top:-200px; right:-140px; background:radial-gradient(circle, rgba(var(--blue-glow),.14), transparent 65%); animation:drift 16s ease-in-out infinite alternate}
 .glow-b{width:480px;height:480px; bottom:-180px; left:-140px; background:radial-gradient(circle, rgba(var(--blue-glow),.10), transparent 65%); animation:drift 20s ease-in-out infinite alternate-reverse}
 @keyframes drift{from{transform:translate(0,0)}to{transform:translate(-46px,38px)}}
@@ -48,26 +48,26 @@ body{font-family:var(--body); background:var(--bg); color:var(--ink); min-height
 ::selection{background:var(--blue); color:#fff}
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(var(--blue-glow),.35); border-radius:6px}
-::-webkit-scrollbar-thumb:hover{background:rgba(var(--blue-glow),.55)}
+::-webkit-scrollbar-thumb{background:#c6d4ee; border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:#a8bce4}
 :focus-visible{outline:none; box-shadow:0 0 0 3px rgba(var(--blue-glow),.3)}
 
 .wrap{max-width:1180px; margin:0 auto; padding:0 24px}
 
 /* ── 헤더 ── */
 .topbar{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.86); backdrop-filter:blur(10px); box-shadow:0 6px 24px -12px rgba(23,43,99,.15)}
-.topbar-in{display:flex; align-items:center; justify-content:space-between; height:64px}
-.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink)}
-.brand-mark{width:26px; height:32px; filter:drop-shadow(0 4px 8px rgba(var(--blue-glow),.4))}
-.brand-word{font-family:var(--disp); font-weight:800; font-size:21px}
+.topbar-in{display:flex; align-items:center; justify-content:space-between; gap:10px; height:64px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); min-width:0}
+.brand-mark{width:26px; height:32px; flex:none; filter:drop-shadow(0 4px 8px rgba(var(--blue-glow),.4))}
+.brand-word{font-family:var(--disp); font-weight:800; font-size:21px; white-space:nowrap}
 .brand-word em{font-style:normal; color:var(--blue)}
-.brand-sub{font-size:11px; color:var(--dim); letter-spacing:.18em; padding-top:6px}
-.top-actions{display:flex; gap:8px; align-items:center}
+.brand-sub{font-size:11px; color:var(--dim); letter-spacing:.18em; padding-top:6px; white-space:nowrap}
+.top-actions{display:flex; gap:8px; align-items:center; flex-wrap:nowrap}
 body.shared .own-only{display:none}
 
 /* ── 버튼 ─ */
 .btn{display:inline-flex; align-items:center; gap:7px; font-family:var(--body); font-size:13.5px; font-weight:600;
-  padding:9px 15px; border-radius:10px; border:none; cursor:pointer;
+  padding:9px 15px; border-radius:10px; border:none; cursor:pointer; white-space:nowrap;
   background:var(--surface); color:var(--ink); box-shadow:var(--sh-sm);
   transition:transform .15s ease, box-shadow .2s, background .2s}
 .btn:hover{transform:translateY(-1px); box-shadow:var(--sh-md)}
@@ -81,16 +81,15 @@ body.shared .own-only{display:none}
 
 /* ── 히어로 ── */
 .hero{display:grid; grid-template-columns:1.12fr .88fr; gap:44px; align-items:center; padding:58px 0 46px}
-.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:11.5px; font-weight:700; letter-spacing:.22em; color:var(--blue-deep); margin-bottom:18px; text-transform:uppercase; transition:color .4s ease}
-.eyebrow::before{content:''; width:22px; height:2px; background:var(--blue-deep); border-radius:2px; transition:background .4s ease}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:11.5px; font-weight:700; letter-spacing:.22em; color:var(--blue); margin-bottom:18px; text-transform:uppercase}
+.eyebrow::before{content:''; width:22px; height:2px; background:var(--blue); border-radius:2px}
 h1{font-family:var(--disp); font-weight:800; font-size:clamp(32px,4.6vw,54px); line-height:1.2; letter-spacing:-.01em}
-h1 .hl{color:var(--blue); background:linear-gradient(transparent 64%, rgba(var(--blue-glow),.16) 0); transition:color .4s ease}
+h1 .hl{color:var(--blue); background:linear-gradient(transparent 64%, rgba(var(--blue-glow),.16) 0)}
 .hero-desc{margin-top:18px; color:var(--mut); font-size:15.5px; max-width:46ch}
 .hero-desc b{color:var(--ink)}
 .stats{display:flex; gap:34px; margin-top:34px; padding-top:24px; border-top:1px solid rgba(23,43,99,.08)}
 .stat-num{font-family:var(--disp); font-weight:800; font-size:32px; line-height:1; font-variant-numeric:tabular-nums}
-.stat-num.a{color:var(--blue)}
-.stat-num.t{color:var(--blue-light); transition:color .4s ease}
+.stat-num.a{color:var(--blue)} .stat-num.t{color:var(--blue-deep)}
 .stat-label{font-size:12px; color:var(--dim); margin-top:6px; letter-spacing:.05em}
 
 /* ── 추가 폼 카드 ── */
@@ -137,7 +136,7 @@ textarea{resize:none; height:44px}
 
 /* ── 바 ── */
 .toolbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:22px 0 14px}
-.search-box{position:relative; flex:1; min-width:220px}
+.search-box{position:relative; flex:1; min-width:180px}
 .search-box svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--dim); pointer-events:none}
 .search-box input{padding-left:36px; padding-right:40px}
 .search-box kbd{position:absolute; right:11px; top:50%; transform:translateY(-50%); font-size:11px; color:var(--dim); background:var(--blue-soft); border-radius:4px; padding:1px 7px; font-family:inherit; pointer-events:none}
@@ -177,33 +176,35 @@ select{width:auto; cursor:pointer; padding:9px 12px}
 .icon-btn:active{transform:scale(.88)}
 .icon-btn.danger:hover{background:#ffecea; color:var(--danger)}
 .icon-btn.armed{width:auto; padding:0 9px; background:var(--danger); color:#fff; font-size:11px; font-weight:700}
-.card-title{font-size:15.5px; font-weight:700; line-height:1.4}
+.card-title{font-size:15.5px; font-weight:700; line-height:1.4; min-width:0}
 .card-title a{color:var(--ink); text-decoration:none; background:linear-gradient(var(--blue),var(--blue)) no-repeat 0 100% / 0 2px; transition:background-size .25s}
 .card-title a:hover{background-size:100% 2px}
 .card-url{font-size:12px; color:var(--dim); display:flex; align-items:center; gap:5px; margin-top:3px}
 .card-url svg{width:11px;height:11px}
 .card-desc{font-size:13px; color:var(--mut); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
 .card-tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:auto; padding-top:6px}
-/* 태그 색상 — 테마 primary를 기준으로 자동 생성 */
 .tag{font-size:11.5px; font-weight:600; padding:3px 10px; cursor:pointer; border:none; border-radius:var(--r-tag); transition:transform .15s, box-shadow .15s}
 .tag:hover{transform:translateY(-1px); box-shadow:var(--sh-sm)}
-.tag.c0{background:rgba(var(--blue-glow),.12); color:var(--blue-deep)}
-.tag.c1{background:rgba(var(--blue-glow),.08); color:var(--blue)}
-.tag.c2{background:rgba(255,122,92,.14); color:#d4502e}
-.tag.c3{background:rgba(var(--blue-glow),.18); color:var(--blue-deep)}
-.tag.c4{background:rgba(var(--blue-glow),.10); color:var(--blue)}
-.tag.c5{background:rgba(var(--blue-glow),.15); color:var(--blue-deep)}
+.tag.c0{background:#e8f0ff; color:#2458c5} .tag.c1{background:#e0f7f2; color:#0f8a74}
+.tag.c2{background:#ffece6; color:#d4502e} .tag.c3{background:#f0eaff; color:#6d4fc2}
+.tag.c4{background:#fff3dd; color:#b0700f} .tag.c5{background:#e9f7e2; color:#4d8a1f}
 .card-foot{display:flex; align-items:center; justify-content:space-between; padding-top:10px; margin-top:2px}
 .card-time{font-size:11.5px; color:var(--dim)}
 .open-link{font-size:12px; font-weight:700; color:var(--blue); text-decoration:none; display:inline-flex; align-items:center; gap:4px}
 .open-link svg{width:12px;height:12px; transition:transform .2s}
 .open-link:hover svg{transform:translate(2px,-2px)}
+
+/* 리스트 뷰 — order 기반 재배치 */
 .grid.list{grid-template-columns:1fr; gap:10px}
-.grid.list .card{flex-direction:row; align-items:center; padding:13px 18px; gap:15px}
-.grid.list .card-top{width:100%}
-.grid.list .card-mid{flex:1; min-width:0}
+.grid.list .card{flex-direction:row; align-items:center; padding:12px 18px; gap:14px}
+.grid.list .card-top{display:contents}
+.grid.list .fav{order:1}
+.grid.list .card-mid{order:2; flex:1; min-width:0}
+.grid.list .card-acts{order:3; margin-left:0; opacity:1; transform:none; flex:none}
+.grid.list .card-mid{display:block}
+.grid.list .card-title{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.grid.list .card-url{margin-top:1px}
 .grid.list .card-desc,.grid.list .card-tags,.grid.list .card-foot{display:none}
-.grid.list .card-acts{opacity:1; transform:none}
 
 /* ── 빈 상태 ── */
 .empty{text-align:center; padding:70px 20px 90px; animation:rise .5s both}
@@ -212,12 +213,12 @@ select{width:auto; cursor:pointer; padding:9px 12px}
 .empty p{color:var(--mut); font-size:14px; margin:10px 0 24px}
 
 /* ── 토스트 ── */
-.toasts{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:100; display:flex; flex-direction:column; gap:9px; align-items:center}
+.toasts{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:100; display:flex; flex-direction:column; gap:9px; align-items:center; width:max-content; max-width:calc(100vw - 32px)}
 .toast{display:flex; align-items:center; gap:14px; background:#fff; color:var(--ink);
   padding:11px 18px; border-radius:12px; font-size:13.5px; font-weight:500; box-shadow:var(--sh-lg);
-  animation:toastIn .35s cubic-bezier(.2,1.4,.4,1) both}
+  animation:toastIn .35s cubic-bezier(.2,1.4,.4,1) both; max-width:100%}
 .toast.out{animation:toastOut .3s ease both}
-.toast button{background:none; border:none; color:var(--blue); font-weight:700; font-size:13px; cursor:pointer; font-family:inherit}
+.toast button{background:none; border:none; color:var(--blue); font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; white-space:nowrap}
 .toast button:hover{text-decoration:underline}
 @keyframes toastIn{from{opacity:0; transform:translateY(18px) scale(.94)}}
 @keyframes toastOut{to{opacity:0; transform:translateY(12px) scale(.96)}}
@@ -250,7 +251,7 @@ footer p b{color:var(--mut)}
   width:36px; height:36px; border-radius:50%; border:none; cursor:pointer;
   background:conic-gradient(from 0deg, #2f6bed, #8b5cf6, #ec4899, #f97316, #10b981, #2f6bed);
   box-shadow:var(--sh-sm); transition:transform .15s, box-shadow .2s;
-  display:grid; place-items:center; padding:0;
+  display:grid; place-items:center; padding:0; flex:none;
 }
 .theme-btn:hover{transform:translateY(-1px) scale(1.05); box-shadow:var(--sh-md)}
 .theme-btn:active{transform:scale(.95)}
@@ -292,6 +293,13 @@ footer p b{color:var(--mut)}
   .hero{grid-template-columns:1fr; gap:34px; padding-top:42px}
   .sb-actions{margin-left:0}
 }
+@media (max-width:720px){
+  .brand-sub{display:none}
+  .btn-label{display:none}
+  .btn{padding:9px 11px}
+  .topbar-in{height:60px}
+  .stats{gap:24px}
+}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important}}
 </style>
 </head>
@@ -308,7 +316,7 @@ footer p b{color:var(--mut)}
         <defs><linearGradient id="g" x1="2" y1="1" x2="24" y2="31"><stop stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="var(--blue-deep)" stop-opacity=".2"/></linearGradient></defs>
       </svg>
       <span class="brand-word">서<em>고</em></span>
-      <span class="brand-sub">SAEKM · LINK ARCHIVE</span>
+      <span class="brand-sub">SEOGO · LINK ARCHIVE</span>
     </a>
     <div class="top-actions">
       <div class="theme-wrap own-only">
@@ -324,15 +332,15 @@ footer p b{color:var(--mut)}
       </div>
       <button class="btn btn-ghost own-only" id="btnImport">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        백업 불러오기
+        <span class="btn-label">백업 불러오기</span>
       </button>
       <button class="btn own-only" id="btnExport">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        JSON 백업
+        <span class="btn-label">JSON 백업</span>
       </button>
       <button class="btn btn-primary own-only" id="btnShare">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg>
-        공유하기
+        <span class="btn-label">공유하기</span>
       </button>
       <input type="file" id="fileImport" accept=".json,application/json" hidden>
       <input type="file" id="imgPicker" accept="image/*" hidden>
@@ -496,7 +504,16 @@ function copyText(t){
   ta.select(); document.execCommand('copy'); ta.remove(); return Promise.resolve();
 }
 
-/* ═══════════ 색상 유틸 ═══════════ */
+/* ═══════════ 테마 시스템 ═══════════ */
+const THEMES = {
+  ocean:    {name:'오션',    primary:'#2f6bed', deep:'#1e56d6', light:'#4d82ff', soft:'#e8f0ff', glow:'47,107,237',  bg:'#f4f7fd'},
+  lavender: {name:'라벤더',  primary:'#8b5cf6', deep:'#7044e0', light:'#a78bfa', soft:'#f0eaff', glow:'139,92,246',  bg:'#f7f5fd'},
+  rose:     {name:'로즈',    primary:'#ec4899', deep:'#d63384', light:'#f472b6', soft:'#fce7f3', glow:'236,72,153',  bg:'#fdf4f8'},
+  emerald:  {name:'에메랄드',primary:'#10b981', deep:'#059669', light:'#34d399', soft:'#d1fae5', glow:'16,185,129',  bg:'#f2fbf7'},
+  sunset:   {name:'선셋',    primary:'#f97316', deep:'#ea580c', light:'#fb923c', soft:'#ffedd5', glow:'249,115,22',  bg:'#fdf7f2'},
+  scarlet:  {name:'스칼렛',  primary:'#ef4444', deep:'#dc2626', light:'#f87171', soft:'#fee2e2', glow:'239,68,68',   bg:'#fdf3f3'},
+};
+
 function hexToRgb(hex){
   hex = hex.replace('#','');
   if(hex.length===3) hex = hex.split('').map(c=>c+c).join('');
@@ -515,45 +532,24 @@ function darkenHex(hex, amt){
   r = Math.max(0, r - amt); g = Math.max(0, g - amt); b = Math.max(0, b - amt);
   return '#' + [r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
 }
-function desaturateHex(hex, amt){
-  hex = hex.replace('#','');
-  let r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16);
-  const gray = Math.round(0.3*r + 0.59*g + 0.11*b);
-  r = Math.round(r + (gray-r) * amt);
-  g = Math.round(g + (gray-g) * amt);
-  b = Math.round(b + (gray-b) * amt);
-  return '#' + [r,g,b].map(v=>Math.max(0,Math.min(255,v)).toString(16).padStart(2,'0')).join('');
-}
 function makeThemeFromHex(primary){
   return {
     primary,
     deep: darkenHex(primary, 30),
     light: lightenHex(primary, 40),
-    soft: lightenHex(desaturateHex(primary, 0.3), 180),
-    bg: lightenHex(desaturateHex(primary, 0.6), 220),
+    soft: lightenHex(primary, 180),
     glow: hexToRgb(primary),
+    bg: lightenHex(primary, 235),
   };
 }
-
-/* ═══════════ 테마 시스템 ═══════════ */
-const THEMES = {
-  ocean:    {name:'오션',    primary:'#2f6bed', deep:'#1e56d6', light:'#4d82ff', soft:'#e8f0ff', bg:'#f4f7fd', glow:'47,107,237'},
-  lavender: {name:'라벤더',  primary:'#8b5cf6', deep:'#7044e0', light:'#a78bfa', soft:'#f0eaff', bg:'#f9f5fe', glow:'139,92,246'},
-  rose:     {name:'로즈',    primary:'#ec4899', deep:'#d63384', light:'#f472b6', soft:'#fce7f3', bg:'#fdf2f7', glow:'236,72,153'},
-  emerald:  {name:'에메랄드',primary:'#10b981', deep:'#059669', light:'#34d399', soft:'#d1fae5', bg:'#f2fdf8', glow:'16,185,129'},
-  sunset:   {name:'선셋',    primary:'#f97316', deep:'#ea580c', light:'#fb923c', soft:'#ffedd5', bg:'#fef7f1', glow:'249,115,22'},
-  scarlet:  {name:'스칼렛',  primary:'#ef4444', deep:'#dc2626', light:'#f87171', soft:'#fee2e2', bg:'#fdf2f2', glow:'239,68,68'},
-};
-
 function applyTheme(theme){
   const r = document.documentElement;
   r.style.setProperty('--blue', theme.primary);
   r.style.setProperty('--blue-deep', theme.deep);
   r.style.setProperty('--blue-light', theme.light);
   r.style.setProperty('--blue-soft', theme.soft);
-  r.style.setProperty('--bg', theme.bg);
   r.style.setProperty('--blue-glow', theme.glow);
-  // SVG 그라디언트 stop 업데이트
+  r.style.setProperty('--blue-bg', theme.bg);
   const gStop = document.querySelector('#g stop[offset="1"]');
   if(gStop) gStop.setAttribute('stop-color', theme.deep);
 }
@@ -584,7 +580,7 @@ function renderThemeGrid(){
   if(saved){
     if(THEMES[saved]) theme = THEMES[saved];
     else {
-      try{ theme = JSON.parse(saved); }catch{ theme = THEMES.ocean; }
+      try{ const t = JSON.parse(saved); if(t && t.primary && t.glow){ if(!t.bg) t.bg = lightenHex(t.primary, 235); theme = t; } }catch{}
     }
   }
   applyTheme(theme);
@@ -675,7 +671,7 @@ function renderGrid(){
   const list=visible(), grid=$('#grid');
   if(!src().length){
     grid.innerHTML=`<div class="empty" style="grid-column:1/-1">
-      <svg viewBox="0 0 26 32" fill="none"><path d="M2 3a2 2 0 0 1 2-2h18a2 2 0 0 1 2 2v28l-11-6.5L2 31V3Z" fill="var(--blue-soft)"/><path d="M2 3a2 2 0 0 1 2-2h18a2 2 0 0 1 2 2v28l-11-6.5L2 31V3Z" fill="url(#eg)"/></svg>
+      <svg viewBox="0 0 26 32" fill="none"><path d="M2 3a2 2 0 0 1 2-2h18a2 2 0 0 1 2 2v28l-11-6.5L2 31V3Z" fill="var(--blue-soft)"/></svg>
       <h3>서고가 비어 있습니다</h3><p>첫 링크를 꽂아두면 이곳이 당신의 아카이브가 돼요.</p>
       <button class="btn btn-primary" onclick="document.getElementById('fUrl').focus()">＋ 첫 링크 추가하기</button></div>`;
     return;
@@ -788,8 +784,7 @@ document.addEventListener('click', (e)=>{
 renderThemeGrid();
 
 $('#customColor').addEventListener('input', (e)=>{
-  const hex = e.target.value;
-  const theme = makeThemeFromHex(hex);
+  const theme = makeThemeFromHex(e.target.value);
   applyTheme(theme);
   localStorage.setItem(LS_THEME, JSON.stringify(theme));
   document.querySelectorAll('.theme-chip').forEach(c=>c.classList.remove('on'));
@@ -832,22 +827,31 @@ $('#imgPicker').addEventListener('change',e=>{
   reader.readAsDataURL(f);
 });
 
-/* ═══════════ 추가 ═══════════ */
+/* ═══════════ 추가 (중복 확인 포함) ═══════════ */
+function commitAdd(draft){
+  items.unshift(draft); persist(); render();
+  $('#addForm').reset();
+  addImgData=null; setPrev($('#addImgPrev'),null); $('#addImgClear').hidden=true;
+  toast('📚 서고에 꽂았어요');
+  $('#fUrl').focus();
+}
 $('#addForm').addEventListener('submit',e=>{
   e.preventDefault();
   const url=normUrl($('#fUrl').value);
   try{ new URL(url); }catch{ toast('⚠️ 올바른 URL이 아니에요'); return; }
-  items.unshift({
+  const draft={
     id:uid(), url,
     title:$('#fTitle').value.trim()||hostOf(url),
     desc:$('#fDesc').value.trim(),
     tags:parseTags($('#fTags').value),
     img:addImgData,
     created:Date.now(),
-  });
-  persist(); render(); e.target.reset();
-  addImgData=null; setPrev($('#addImgPrev'),null); $('#addImgClear').hidden=true;
-  toast('📚 서고에 꽂았어요'); $('#fUrl').focus();
+  };
+  if(items.some(i=>normUrl(i.url)===url)){
+    toast('🤔 이미 보관한 링크입니다. 또 추가할까요?','추가하기',()=>commitAdd(draft),6000);
+    return;
+  }
+  commitAdd(draft);
 });
 
 document.addEventListener('paste',e=>{
@@ -922,7 +926,7 @@ $('#editForm').addEventListener('submit',e=>{
 /* ═══════════ 백업 내보내기 / 가져오기 ═══════════ */
 $('#btnExport').onclick=()=>{
   const d=new Date(),pad=n=>String(n).padStart(2,'0');
-  const blob=new Blob([JSON.stringify({app:'saekm',version:1,exportedAt:new Date().toISOString(),bookmarks:items},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({app:'seogo',version:1,exportedAt:new Date().toISOString(),bookmarks:items},null,2)],{type:'application/json'});
   const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:`서고-backup-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}.json`});
   a.click(); URL.revokeObjectURL(a.href);
   toast(`💾 ${items.length}개 링크를 백업했어요`);
